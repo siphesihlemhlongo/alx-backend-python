@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
 import asyncio
-import time
 from typing import List
-from wait_random_file import wait_n  # Assuming wait_n is defined in wait_random_file.py
+from time import time
 
-async def measure_time(n: int, max_delay: int) -> float:
-    start_time = time.time()
-    await wait_n(n, max_delay)
-    end_time = time.time()
+async def wait_n(n: int, max_delay: int) -> List[float]:
+    tasks = [wait_random(max_delay) for _ in range(n)]
+    delays = await asyncio.gather(*tasks)
+    return sorted(delays)
+
+def measure_time(n: int, max_delay: int) -> float:
+    start_time = time()
+    asyncio.run(wait_n(n, max_delay))
+    end_time = time()
     total_time = end_time - start_time
     return total_time / n
 
-async def main():
-    n = 5
-    max_delay = 10
-    average_time_per_wait = await measure_time(n, max_delay)
-    print(f"Average time per wait: {average_time_per_wait:.4f} seconds")
-
-# Run the main coroutine
-asyncio.run(main())
+# Test the measure_time function
+n = 5
+max_delay = 9
+print(measure_time(n, max_delay))

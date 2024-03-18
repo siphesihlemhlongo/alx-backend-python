@@ -1,24 +1,19 @@
-#!/isr/bin/env python3
+#!/usr/bin/env python3
 import asyncio
-from random import uniform
 from typing import List
+from random import randint
 
-async def wait_random(max_delay: int = 10) -> float:
-    delay = uniform(0, max_delay)
+async def wait_random(max_delay=10):
+    delay = random.uniform(0, max_delay)
     await asyncio.sleep(delay)
     return delay
 
 async def wait_n(n: int, max_delay: int) -> List[float]:
-    coroutines = [wait_random(max_delay) for _ in range(n)]
-    results = await asyncio.gather(*coroutines)
-    return sorted(results)
+    tasks = [wait_random(max_delay) for _ in range(n)]
+    delays = await asyncio.gather(*tasks)
+    return sorted(delays)
 
-async def main():
-    # Example usage
-    n = 5
-    max_delay = 10
-    delays = await wait_n(n, max_delay)
-    print("Delays:", delays)
-
-# Run the main coroutine
-asyncio.run(main())
+# Test the wait_n coroutine
+print(asyncio.run(wait_n(5, 5)))
+print(asyncio.run(wait_n(10, 7)))
+print(asyncio.run(wait_n(10, 0)))
