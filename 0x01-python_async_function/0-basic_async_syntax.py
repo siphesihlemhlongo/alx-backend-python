@@ -2,15 +2,12 @@
 import asyncio
 import random
 
-async def wait_random(max_delay: int = 10) -> float:
+async def wait_random(max_delay=10):
     delay = random.uniform(0, max_delay)
     await asyncio.sleep(delay)
     return delay
 
-async def main():
-    # Example usage
-    random_delay = await wait_random()
-    print(f"Waited for {random_delay:.2f} seconds")
-
-# Run the main coroutine
-asyncio.run(main())
+# Test the wait_random coroutine
+print(asyncio.run(wait_random()))
+print(asyncio.run(wait_random(5)))
+print(asyncio.run(wait_random(15)))
