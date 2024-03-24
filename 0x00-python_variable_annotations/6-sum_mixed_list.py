@@ -1,15 +1,22 @@
 #!/usr/bin/env python3
 
-from typing import List, Union
+"""
+Module with annoated function
+With Union types
+"""
 
-def sum_mixed_list(mxd_lst: List[Union[int, float]]) -> float:
+from functools import reduce
+from typing import Union, List
+
+mdx_list_type = List[Union[int, float]]
+
+
+def sum_mixed_list(mxd_list: mdx_list_type) -> float:
     """
-    Calculates the sum of a list of integers and floats.
-
+    Sum a list of mixed values (int and floats)
     Args:
-        mxd_lst: A list containing integers and floats.
-
+        mxd_list (list): List of the values to sum
     Returns:
-        The sum of the integers and floats in the input list as a float.
+        returns a float
     """
-    return sum(mxd_lst)
+    return float(reduce(lambda x, y: x + y, mxd_list))

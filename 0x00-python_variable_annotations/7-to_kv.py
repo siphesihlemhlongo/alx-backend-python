@@ -1,19 +1,25 @@
 #!/usr/bin/env python3
 
-from typing import Union, Tuple
+"""
+Module with a type annotated function
+that returns a tuple
+"""
 
-def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
+
+from typing import Tuple, Union
+
+v_type = Union[int, float]
+return_type = Tuple[str, float]
+
+
+def to_kv(k: str, v: v_type) -> return_type:
     """
-    Takes a string k and an int or float v as arguments and returns a tuple.
-
-    The first element of the tuple is the string k.
-    The second element is the square of the int/float v and is annotated as a float.
-
+    conver k, v to a tuple
     Args:
-        k: A string.
-        v: An integer or a float.
-
-    Returns:
-        A tuple containing the string k and the square of the int/float v.
+        k (str): any valid string value
+        v (int/float): An int or float value
     """
-    return (k, float(v) ** 2)
+    if not isinstance(k, str):
+        raise TypeError('expected a string')
+    v_squared: float = v * v
+    return tuple([k, v_squared])
