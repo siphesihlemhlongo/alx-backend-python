@@ -1,18 +1,32 @@
 #!/usr/bin/env python3
 
+"""
+Type annotated function that returns another function
+"""
+
 from typing import Callable
+
 
 def make_multiplier(multiplier: float) -> Callable[[float], float]:
     """
-    Takes a float multiplier as argument and returns a function that multiplies a float by multiplier.
-
+    function to return a callable
     Args:
-        multiplier: A float value to be used as a multiplier.
-
+        multiplier (float): value to multiply with
     Returns:
-        A function that takes a float argument and returns the result of multiplying that float by multiplier.
+        returns a callable
     """
-    def multiplier_function(x: float) -> float:
-        return x * multiplier
+    def call_back_func(arg: float) -> float:
+        """
+        The callback function
+        Args:
+            arg (float)
+        Returns:
+            Returns a float
+        """
+        if isinstance(arg, float):
+            return multiplier * arg
+        raise TypeError('expected a float value')
 
-    return multiplier_function
+    if not isinstance(multiplier, float):
+        raise TypeError('expected a float value')
+    return call_back_func

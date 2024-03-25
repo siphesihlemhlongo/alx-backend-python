@@ -1,15 +1,22 @@
 #!/usr/bin/env python3
 
-from typing import List, Tuple
+"""
+Lets duck type an iterrable object, shall We?
+"""
 
-def element_length(lst: List[str]) -> List[Tuple[str, int]]:
+
+from typing import Iterable, Sequence, List, Tuple
+
+lst_type = Iterable[Sequence]
+return_type = List[Tuple[Sequence, int]]
+
+
+def element_length(lst: lst_type) -> return_type:
     """
-    Returns a list of tuples containing elements of the input list along with their lengths.
-
+    Function to get the length of elements in an iterable
     Args:
-        lst: A list of strings.
-
+        lst (list): A list of elements
     Returns:
-        A list of tuples where each tuple contains an element of lst and its length.
+        Returns a list
     """
     return [(i, len(i)) for i in lst]
